@@ -3,6 +3,7 @@ package org.pavlov.demo;
 import org.pavlov.model.Account;
 import org.pavlov.model.Transaction;
 import org.pavlov.model.User;
+import org.pavlov.property_reader.PropertiesReader;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -14,7 +15,12 @@ import static org.pavlov.service.UserInput.addNewUser;
 
 public class Application {
     private static final String JDBC_DRIVER_PATH = "org.sqlite.JDBC";
-    private static final String URL = "jdbc:sqlite:C:/Sqlite/Sqlite3/bank_transactions.db";
+    private static final String URL_KEY = "dbURL";
+    private static String URL;
+
+    static{
+        URL = PropertiesReader.getValueFromProperty(URL_KEY);
+    }
 
     public static void main(String[] args) throws SQLException {
         if (isDriverExists()) {
